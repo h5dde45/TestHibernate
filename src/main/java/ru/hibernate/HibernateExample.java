@@ -6,6 +6,9 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import ru.hibernate.entity.Student;
 
+import javax.persistence.Query;
+import java.util.List;
+
 public class HibernateExample {
 
     public static void main(String[] args) {
@@ -16,16 +19,11 @@ public class HibernateExample {
         Session session = sessionFactory.openSession();
         Transaction transaction=session.beginTransaction();
 
-        Student student=new Student();
-//        student.setFirstName("tri");
-//        student.setLastName("TRI");
-//        student.setAge(22);
-//
-//        session.save(student);
+//        Student student=session.get(Student.class,1);
+//        Set<Exam> exams=student.getExams();
 
-        student=session.get(Student.class,2);
-        System.out.println(student);
-//        student.setAge(55);
+        Query query=session.createQuery("from Student");
+        List<Student> students=query.getResultList();
 
         transaction.commit();
 
