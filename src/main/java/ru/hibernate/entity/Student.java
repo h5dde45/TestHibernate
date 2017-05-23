@@ -1,6 +1,7 @@
 package ru.hibernate.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "students")
@@ -19,6 +20,12 @@ public class Student {
 
     @Column(name = "age")
     private int age;
+
+    @Embedded
+    private StudentAddress studentAddress;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+    private Set<Exam> exams;
 
     public int getId() {
         return id;
@@ -50,5 +57,31 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public StudentAddress getStudentAddress() {
+        return studentAddress;
+    }
+
+    public void setStudentAddress(StudentAddress studentAddress) {
+        this.studentAddress = studentAddress;
+    }
+
+    public Set<Exam> getExams() {
+        return exams;
+    }
+
+    public void setExams(Set<Exam> exams) {
+        this.exams = exams;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
